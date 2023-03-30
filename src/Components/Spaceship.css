@@ -1,12 +1,13 @@
 .spaceships-container{
-    display: flex;
-    max-width: 100vw;
+    margin-left: 2em;
+    display: grid;
+    grid-template-columns: 33% 33% 33%
 }
 .SpaceShip{
     border: 1px solid black;
     display: flex;
     align-items: center;
-    padding: 1em;
-    width:10em;
+    width:fit-content;
     flex-wrap: wrap;
+    margin: 1em 1em;
 }
