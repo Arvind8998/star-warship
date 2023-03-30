@@ -356,39 +356,6 @@ const Spaceships = () => {
           {pilot.name}
         </Typography>
       </Tooltip>
-
-      //   <>
-      // <Typography
-      //   onClick={() => handleTooltip(idx)}
-      //   id="keep-mounted-modal-title"
-      //   variant="h6"
-      //   component="h2"
-      //   className="pilotName"
-      // >
-      //   {pilot.name}
-      //       <Tooltip
-      //         PopperProps={{
-      //           disablePortal: true,
-      //         }}
-      //         onClose={() => {
-      //           setPilotToolTip(null);
-      //         }}
-      //         open={pilotToolTip === idx}
-      //         disableFocusListener
-      //         disableHoverListener
-      //         disableTouchListener
-      //         title="Add"
-      //       >
-      //   <Typography
-      //     id="keep-mounted-modal-title"
-      //     variant="h6"
-      //     component="h2"
-      //   >
-      //     {pilot.gender}
-      //   </Typography>
-      //       </Tooltip>
-      //     </Typography>
-      //   </>
     ));
   };
 
@@ -432,6 +399,7 @@ const Spaceships = () => {
             open={isPilotDetailsModalOpen}
             onClose={() => {
               openPilotDetailsModal(false);
+              setPilotToolTip(null);
             }}
             aria-labelledby="keep-mounted-modal-title"
             aria-describedby="keep-mounted-modal-description"
