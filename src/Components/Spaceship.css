@@ -11,3 +11,7 @@
     flex-wrap: wrap;
     margin: 1em 1em;
 }
+
+.pilotName{
+    white-space: nowrap;
+}

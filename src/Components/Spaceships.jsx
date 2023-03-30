@@ -22,7 +22,7 @@ const Spaceships = () => {
   const [pilots, setPilots] = useState([]);
   const [isPilotDetailsModalOpen, openPilotDetailsModal] =
     React.useState(false);
-  const [isPilotTooltipOpen, setPilotToolTip] = useState(false);
+  const [pilotToolTip, setPilotToolTip] = useState(null);
   const [selectedSpaceship, setSelectedSpaceship] = useState(false);
 
   const style = {
@@ -286,7 +286,6 @@ const Spaceships = () => {
       };
 
       //   await axios.get("/starships");
-      debugger;
       const spaceShipsArr = response?.results ?? [];
       //   response?.data?.results ?? [];
       setSpaceShips(spaceShipsArr);
@@ -325,44 +324,71 @@ const Spaceships = () => {
     setPilots(pilotsData);
     setSelectedSpaceship(spaceship);
   };
+  const handleTooltip = (index) => {
+    setPilotToolTip(pilotToolTip === index ? null : index);
+  };
 
   const getPilotsView = () => {
-    return pilots.map((pilot) => (
-      <>
+    return pilots.map((pilot, idx) => (
+      <Tooltip
+        onClose={() => handleTooltip(null)}
+        open={pilotToolTip === idx}
+        title={
+          <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
+            {pilot.gender}
+          </Typography>
+        }
+        arrow
+        PopperProps={{
+          disablePortal: true,
+        }}
+        disableFocusListener
+        disableHoverListener
+        disableTouchListener
+      >
         <Typography
-          onClick={() => setPilotToolTip(true)}
+          onClick={() => handleTooltip(idx)}
           id="keep-mounted-modal-title"
           variant="h6"
           component="h2"
+          className="pilotName"
         >
           {pilot.name}
         </Typography>
-        <Button onClick={() => setPilotToolTip(true)}>Click</Button>
+      </Tooltip>
 
-        <div>
-          <Tooltip
-            PopperProps={{
-              disablePortal: true,
-            }}
-            onClose={() => {
-              setPilotToolTip(false);
-            }}
-            open={isPilotTooltipOpen}
-            disableFocusListener
-            disableHoverListener
-            disableTouchListener
-            title="Add"
-          >
-            <Typography
-              id="keep-mounted-modal-title"
-              variant="h6"
-              component="h2"
-            >
-              {pilot.gender}
-            </Typography>
-          </Tooltip>
-        </div>
-      </>
+      //   <>
+      // <Typography
+      //   onClick={() => handleTooltip(idx)}
+      //   id="keep-mounted-modal-title"
+      //   variant="h6"
+      //   component="h2"
+      //   className="pilotName"
+      // >
+      //   {pilot.name}
+      //       <Tooltip
+      //         PopperProps={{
+      //           disablePortal: true,
+      //         }}
+      //         onClose={() => {
+      //           setPilotToolTip(null);
+      //         }}
+      //         open={pilotToolTip === idx}
+      //         disableFocusListener
+      //         disableHoverListener
+      //         disableTouchListener
+      //         title="Add"
+      //       >
+      //   <Typography
+      //     id="keep-mounted-modal-title"
+      //     variant="h6"
+      //     component="h2"
+      //   >
+      //     {pilot.gender}
+      //   </Typography>
+      //       </Tooltip>
+      //     </Typography>
+      //   </>
     ));
   };
 
@@ -380,7 +406,6 @@ const Spaceships = () => {
         <CircularProgress />
       ) : (
         <div className="spaceships-container">
-          {/* <Stack direction="row"> */}
           {spaceShips.map((spaceship, idx) => (
             <div
               key={"idx" + idx}
@@ -401,7 +426,6 @@ const Spaceships = () => {
               </Paper>
             </div>
           ))}
-          {/* </Stack> */}
 
           <Modal
             keepMounted
